@@ -1,5 +1,5 @@
 // This file shows basic functions of reading in a CSV file using C++98
-// Please add your name to your code! 
+// Mohamed Mohamed 
 
 /* Homework Objective: fix this program to match the requirements listed: 
   1. successfully reads all lines of the input file
@@ -44,8 +44,8 @@ int main() {
     ofstream out_stream; // creating an output stream to create an output file
 
     // Change *path variable to the path of your data file
-    const char *inputPath = "C:\\Users\\makmn\\CLionProjects\\untitled\\data.csv";
-    const char *outputPath = "C:\\Users\\makmn\\CLionProjects\\untitled\\output.csv";
+    const char *inputPath = "./data.csv";
+    const char *outputPath = "./output.txt";
     // accessing the input file using the created input stream
     in_stream.open(inputPath); //opening the file.
     out_stream.open(outputPath);
