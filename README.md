@@ -33,7 +33,7 @@ make -f lab1.mak
 To build the program without using make, execute the following in your terminal:
 
 ```bash
-gcc -o build main.cpp -lstdc++
+gcc -o build main.cpp -lstdc++ -std=c++98
 ```
 
 Either of these commands will build the program. 
