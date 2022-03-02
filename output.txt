@@ -1,0 +1,32 @@
+SKU		Brand	Category	Year	Price
+111		ABC		A			2000	0.50
+112		ABC		B			2010	0.50
+113		ABC		C			2020	0.50
+211		ABC		A			2000	1.50
+212		ABC		B			2010	1.50
+213		ABC		C			2020	1.50
+321		XYZ		A			2020	1.00
+322		XYZ		A			2020	2.00
+323		XYZ		A			2020	3.00
+
+
+Average Price by Brand
+
+The average price for ABC brand items is 1.00
+The average price for XYZ brand items is 2.00
+
+
+Average price by Category
+
+The average price for items in the A category is 1.60
+The average price for items in the B category is 1.00
+The average price for items in the C category is 1.00
+
+
+SKUs By Year
+
+2000 (2): 111, 211
+2010 (2): 112, 212
+2020 (5): 113, 213, 321, 322, 323
+
+

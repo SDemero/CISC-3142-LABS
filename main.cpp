@@ -1,5 +1,5 @@
 // This file shows basic functions of reading in a CSV file using C++98
-// Please add your name to your code! 
+// Mohamed Mohamed
 
 /* Homework Objective: fix this program to match the requirements listed: 
   1. successfully reads all lines of the input file
@@ -8,14 +8,7 @@
   4. for each unique year, list the count of skus and also print out the skus as a list i.e. 2000 (3): 111, 211, 311 and make a new line per year.
 All programs must be able to compile in C++98 standard (the default version on Linux Machine). That means you cannot use the new features of C++11! :(
 */
-
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <fstream>
-
-using namespace std;
+#include "my_class.h"
 
 int main() {
 
@@ -44,8 +37,9 @@ int main() {
     ofstream out_stream; // creating an output stream to create an output file
 
     // Change *path variable to the path of your data file
-    const char *inputPath = "C:\\Users\\makmn\\CLionProjects\\untitled\\data.csv";
-    const char *outputPath = "C:\\Users\\makmn\\CLionProjects\\untitled\\output.csv";
+    const char *inputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\data.csv";
+    const char *outputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt";
+    FILE *pFile = fopen("C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt", "w");
     // accessing the input file using the created input stream
     in_stream.open(inputPath); //opening the file.
     out_stream.open(outputPath);
@@ -167,24 +161,25 @@ int main() {
         in_stream.close(); //closing the file cout << "Number of entries: " << i-1 << endl;
 
     } else {
-        cout << "Unable to open file";
+        printf("Unable to open file");
     }
 
     //output values
-    cout << "SKU" << "\t" << "Brand" << "\t" << "Category" << "\t" << "Year" << "\t" << "Price" << endl;
-    out_stream << "SKU" << "\t\t" << "Brand" << "\t" << "Category" << "\t" << "Year" << "\t" << "Price" << endl;
+    printf( "SKU\t\tBrand\tCategory\tYear\tPrice\n");
+    fprintf(pFile, "SKU\t\tBrand\tCategory\tYear\tPrice\n");
 
     for (int j = 0; j < vSKU.size(); j++) {
-        cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vCategory[j] << "\t\t" << vYear[j] << "\t" << vPrice[j] << endl;
-        out_stream << vSKU[j] << "\t\t" << vBrand[j] << "\t\t" << vCategory[j] << "\t\t\t" << vYear[j] << "\t" << vPrice[j] << endl;
+        printf("%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", vSKU[j], vBrand[j].c_str(), vCategory[j].c_str(), vYear[j], vPrice[j]);
+        fprintf(pFile, "%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", vSKU[j], vBrand[j].c_str(), vCategory[j].c_str(), vYear[j], vPrice[j]);
     }
 
-    cout << "\n" << endl;
-    out_stream << "\n" << endl;
+    printf("\n\n");
+    fprintf(pFile, "\n\n");
 
     // Feature 1: Brand - Calculating and printing out average price per brand
-    cout << "Average Price by Brand\n" << endl;
-    out_stream << "Average Price by Brand\n" << endl;
+    printf("Average Price by Brand\n\n");
+    fprintf(pFile, "Average Price by Brand\n\n");
+
     for (int j = 0; j < vUniqueBrands.size(); j++) {
         double totalPrice = 0;
         for (int i = 0; i < vBrandAvgPrice[j].size(); i++) {
@@ -192,16 +187,16 @@ int main() {
         }
         int numberOfPrices = vBrandAvgPrice[j].size();
         double avgPrice = totalPrice/numberOfPrices;
-        cout << "The average price for " << vUniqueBrands[j] << " brand items is " << avgPrice << "" << endl;
-        out_stream << "The average price for " << vUniqueBrands[j] << " brand items is " << avgPrice << "" << endl;
+        printf("The average price for %s brand items is %4.2f\n", vUniqueBrands[j].c_str(), avgPrice);
+        fprintf(pFile, "The average price for %s brand items is %4.2f\n", vUniqueBrands[j].c_str(), avgPrice);
     }
 
-    cout << "\n" << endl;
-    out_stream << "\n" << endl;
+    printf("\n\n");
+    fprintf(pFile, "\n\n");
 
     // Feature 1: Category - Calculating and printing out average price per category
-    cout << "Average Price by Category\n" << endl;
-    out_stream << "Average Price by Category\n" << endl;
+    printf("Average price by Category\n\n");
+    fprintf(pFile, "Average price by Category\n\n");
     for (int j = 0; j < vUniqueCategories.size(); j++) {
         double totalPrice = 0;
         for (int i = 0; i < vCategoryAvgPrice[j].size(); i++) {
@@ -209,16 +204,16 @@ int main() {
         }
         int numberOfPrices = vCategoryAvgPrice[j].size();
         double avgPrice = totalPrice/numberOfPrices;
-        cout << "The average price for items in the " << vUniqueCategories[j] << " category is " << avgPrice << endl;
-        out_stream << "The average price for items in the " << vUniqueCategories[j] << " category is " << avgPrice << endl;
+        printf("The average price for items in the %s category is %4.2f\n", vUniqueCategories[j].c_str(), avgPrice);
+        fprintf(pFile, "The average price for items in the %s category is %4.2f\n", vUniqueCategories[j].c_str(), avgPrice);
     }
 
-    cout << "\n" << endl;
-    out_stream << "\n" << endl;
+    printf("\n\n");
+    fprintf(pFile, "\n\n");
 
     // Feature 2: SKUs by Year - Print out SKUs by Year
-    cout << "SKUs By Year\n" << endl;
-    out_stream << "SKUs By Year\n" << endl;
+    printf("SKUs By Year\n\n");
+    fprintf(pFile, "SKUs By Year\n\n");
     for (int j = 0; j < vUniqueYears.size(); j++) {
         string skuList;
         for (int i = 0; i < vSKUsByYear[j].size(); i++) {
@@ -227,11 +222,11 @@ int main() {
                 skuList += ", ";
             }
         }
-        cout << vUniqueYears[j] << " (" << vSKUsByYear[j].size() << "): " << skuList << endl;
-        out_stream << vUniqueYears[j] << " (" << vSKUsByYear[j].size() << "): " << skuList << endl;
+        printf("%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
+        fprintf(pFile, "%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
     }
 
-    out_stream << endl;
-    cout << endl;
+    printf("\n\n");
+    fprintf(pFile, "\n\n");
 
 }
