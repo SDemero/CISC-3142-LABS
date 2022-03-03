@@ -1,9 +1,5 @@
 // This file shows basic functions of reading in a CSV file using C++98
-<<<<<<< HEAD
 // Mohamed Mohamed
-=======
-// Mohamed Mohamed 
->>>>>>> b57649929d38e91940d2d508630f5856bae7b4be
 
 /* Homework Objective: fix this program to match the requirements listed: 
   1. successfully reads all lines of the input file
@@ -41,14 +37,10 @@ int main() {
     ofstream out_stream; // creating an output stream to create an output file
 
     // Change *path variable to the path of your data file
-<<<<<<< HEAD
     const char *inputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\data.csv";
     const char *outputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt";
     FILE *pFile = fopen("C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt", "w");
-=======
-    const char *inputPath = "./data.csv";
-    const char *outputPath = "./output.txt";
->>>>>>> b57649929d38e91940d2d508630f5856bae7b4be
+
     // accessing the input file using the created input stream
     in_stream.open(inputPath); //opening the file.
     out_stream.open(outputPath);
