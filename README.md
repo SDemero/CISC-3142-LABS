@@ -27,13 +27,13 @@ If you are using a Windows machine and you do not have access to a Unix/Linux en
 Run the following command in the root directory of the cloned repository to build the *project*.
 
 ```bash
-make -f lab1.mak
+make lab1
 ```
 
 To build the program without using make, execute the following in your terminal:
 
 ```bash
-gcc -o build main.cpp -lstdc++
+gcc -o build main.cpp -lstdc++ -std=c++98
 ```
 
 Either of these commands will build the program. 
