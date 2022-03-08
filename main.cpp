@@ -10,8 +10,7 @@ All programs must be able to compile in C++98 standard (the default version on L
 */
 #include "my_class.h"
 
-int main() {
-
+struct labData {
     // define variables
     string sku, brand, category, year, price; // Defining several string variables
 
@@ -37,15 +36,44 @@ int main() {
     ofstream out_stream; // creating an output stream to create an output file
 
     // Change *path variable to the path of your data file
-    const char *inputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\data.csv";
-    const char *outputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt";
+    char *inputPath;
+    char *outputPath;
+
+    void printSKUsByYear(FILE *pFile) {
+        printf("SKUs By Year\n\n");
+        fprintf(pFile, "SKUs By Year\n\n");
+        for (int j = 0; j < vUniqueYears.size(); j++) {
+            string skuList;
+            for (int i = 0; i < vSKUsByYear[j].size(); i++) {
+                skuList += vSKUsByYear[j][i];
+                if (i + 1 != vSKUsByYear[j].size()) {
+                    skuList += ", ";
+                }
+            }
+            printf("%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
+            fprintf(pFile, "%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
+        }
+
+        printf("\n\n");
+        fprintf(pFile, "\n\n");
+    }
+
+};
+
+int main() {
+
+    labData testDataOne;
+
+    // Change *path variable to the path of your data file
+    testDataOne.inputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\data.csv";
+    testDataOne.outputPath = "C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt";
     FILE *pFile = fopen("C:\\Users\\makmn\\CLionProjects\\CISC-3142-LAB-1\\output.txt", "w");
 
     // accessing the input file using the created input stream
-    in_stream.open(inputPath); //opening the file.
-    out_stream.open(outputPath);
+    testDataOne.in_stream.open(testDataOne.inputPath); //opening the file.
+    testDataOne.out_stream.open(testDataOne.outputPath);
 
-    if (!in_stream.fail()) { //if the file is open
+    if (!testDataOne.in_stream.fail()) { //if the file is open
 
         // declaring variable line of type string (only used for first getline call to skip headers)
         string line;
@@ -59,107 +87,107 @@ int main() {
          * The flag will be raised on the last getline call for price, where the delimeter '\n' is not reached (because it doesn't exist)
          * and the eof is reached instead, thereby raising the eof flag.
          */
-        getline(in_stream, line); // Gets the first line of headers (we won't be using it)
+        getline(testDataOne.in_stream, line); // Gets the first line of headers (we won't be using it)
 
-        while (!in_stream.eof()) { //while the end of file is NOT reached
+        while (!testDataOne.in_stream.eof()) { //while the end of file is NOT reached
 
             // Fields: sku,brand,category,year,price
 
             // extracts all text from current file position (inclusive) to ',' (exclusive) and stores it into the declared variable sku (implicitly defined as a string)
-            getline(in_stream, sku, ',');
+            getline(testDataOne.in_stream, testDataOne.sku, ',');
 
             // stringstream is a stream class to operate on strings
-            stringstream ssku(sku);
+            stringstream ssku(testDataOne.sku);
             int iSKU = 0;
 
             // using stringstream, we can set iSKU to equal sku through dynamic type conversion
             ssku >> iSKU;
 
             // creates an element at the end of the vector and assigns it the given value
-            vSKU.push_back(iSKU);
+            testDataOne.vSKU.push_back(iSKU);
 
-            getline(in_stream, brand, ',');
-            vBrand.push_back(brand);
+            getline(testDataOne.in_stream,testDataOne.brand, ',');
+            testDataOne.vBrand.push_back(testDataOne.brand);
 
-            getline(in_stream, category, ',');
-            vCategory.push_back(category);
+            getline(testDataOne.in_stream, testDataOne.category, ',');
+            testDataOne.vCategory.push_back(testDataOne.category);
 
-            getline(in_stream, year, ',');
-            stringstream syear(year);
+            getline(testDataOne.in_stream, testDataOne.year, ',');
+            stringstream syear(testDataOne.year);
             int iYear;
             syear >> iYear;
-            vYear.push_back(iYear);
+            testDataOne.vYear.push_back(iYear);
 
             // the following is delimited by the \n since this is the last value expected in a line in the input file
-            getline(in_stream, price, '\n');
-            stringstream sprice(price);
+            getline(testDataOne.in_stream, testDataOne.price, '\n');
+            stringstream sprice(testDataOne.price);
             float fPrice;
             sprice >> fPrice;
-            vPrice.push_back(fPrice);
+            testDataOne.vPrice.push_back(fPrice);
 
 
             // Feature 1: Brand
             bool brandExists = false;
-            for (int j = 0; j < vUniqueBrands.size(); j++) {
-                if (brand == vUniqueBrands[j]) {
+            for (int j = 0; j < testDataOne.vUniqueBrands.size(); j++) {
+                if (testDataOne.brand == testDataOne.vUniqueBrands[j]) {
                     brandExists = true;
                     // push price of item onto brands vector
-                    vBrandAvgPrice[j].push_back(fPrice);
+                    testDataOne.vBrandAvgPrice[j].push_back(fPrice);
                     break;
                 }
             }
 
             // if brand has not been added, add it to the unique brands vector and create a vector for it in the price brand vector
             if (!brandExists) {
-                vUniqueBrands.push_back(brand);
+                testDataOne.vUniqueBrands.push_back(testDataOne.brand);
                 vector<float> newBrand;
                 newBrand.push_back(fPrice);
-                vBrandAvgPrice.push_back(newBrand);
+                testDataOne.vBrandAvgPrice.push_back(newBrand);
             }
 
 
             // Feature 1: Category
             // Check if category has already been added
             bool categoryExists = false;
-            for (int j = 0; j < vUniqueCategories.size(); j++) {
-                if (category == vUniqueCategories[j]) {
+            for (int j = 0; j < testDataOne.vUniqueCategories.size(); j++) {
+                if (testDataOne.category == testDataOne.vUniqueCategories[j]) {
                     categoryExists = true;
                     // push price of item onto categories vector
-                    vCategoryAvgPrice[j].push_back(fPrice);
+                    testDataOne.vCategoryAvgPrice[j].push_back(fPrice);
                     break;
                 }
             }
 
             // if category has not been added, add it to the unique categories vector and create a vector for it in the categories price vector
             if (!categoryExists) {
-                vUniqueCategories.push_back(category);
+                testDataOne.vUniqueCategories.push_back(testDataOne.category);
                 vector<float> newCategory;
                 newCategory.push_back(fPrice);
-                vCategoryAvgPrice.push_back(newCategory);
+                testDataOne.vCategoryAvgPrice.push_back(newCategory);
             }
 
             // Feature 2: SKUs By Year
             bool yearExists = false;
-            for (int j = 0; j < vUniqueYears.size(); j++) {
-                if (year == vUniqueYears[j]) {
+            for (int j = 0; j < testDataOne.vUniqueYears.size(); j++) {
+                if (testDataOne.year == testDataOne.vUniqueYears[j]) {
                     yearExists = true;
                     // push sku of item onto years sku vector
-                    vSKUsByYear[j].push_back(sku);
+                    testDataOne.vSKUsByYear[j].push_back(testDataOne.sku);
                     break;
                 }
             }
 
             // if year has not been added, add it to the unique years vector and create a vector for it in the year's sku vector
             if (!yearExists) {
-                vUniqueYears.push_back(year);
+                testDataOne.vUniqueYears.push_back(testDataOne.year);
                 vector<string> newYear;
-                newYear.push_back(sku);
-                vSKUsByYear.push_back(newYear);
+                newYear.push_back(testDataOne.sku);
+                testDataOne.vSKUsByYear.push_back(newYear);
             }
 
         }
 
-        in_stream.close(); //closing the file cout << "Number of entries: " << i-1 << endl;
+        testDataOne.in_stream.close(); //closing the file cout << "Number of entries: " << i-1 << endl;
 
     } else {
         printf("Unable to open file");
@@ -169,9 +197,9 @@ int main() {
     printf( "SKU\t\tBrand\tCategory\tYear\tPrice\n");
     fprintf(pFile, "SKU\t\tBrand\tCategory\tYear\tPrice\n");
 
-    for (int j = 0; j < vSKU.size(); j++) {
-        printf("%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", vSKU[j], vBrand[j].c_str(), vCategory[j].c_str(), vYear[j], vPrice[j]);
-        fprintf(pFile, "%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", vSKU[j], vBrand[j].c_str(), vCategory[j].c_str(), vYear[j], vPrice[j]);
+    for (int j = 0; j < testDataOne.vSKU.size(); j++) {
+        printf("%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", testDataOne.vSKU[j], testDataOne.vBrand[j].c_str(), testDataOne.vCategory[j].c_str(), testDataOne.vYear[j], testDataOne.vPrice[j]);
+        fprintf(pFile, "%d\t\t%s\t\t%s\t\t\t%d\t%4.2f\n", testDataOne.vSKU[j], testDataOne.vBrand[j].c_str(), testDataOne.vCategory[j].c_str(), testDataOne.vYear[j], testDataOne.vPrice[j]);
     }
 
     printf("\n\n");
@@ -181,15 +209,15 @@ int main() {
     printf("Average Price by Brand\n\n");
     fprintf(pFile, "Average Price by Brand\n\n");
 
-    for (int j = 0; j < vUniqueBrands.size(); j++) {
+    for (int j = 0; j < testDataOne.vUniqueBrands.size(); j++) {
         double totalPrice = 0;
-        for (int i = 0; i < vBrandAvgPrice[j].size(); i++) {
-            totalPrice += vBrandAvgPrice[j][i];
+        for (int i = 0; i < testDataOne.vBrandAvgPrice[j].size(); i++) {
+            totalPrice += testDataOne.vBrandAvgPrice[j][i];
         }
-        int numberOfPrices = vBrandAvgPrice[j].size();
+        int numberOfPrices = testDataOne.vBrandAvgPrice[j].size();
         double avgPrice = totalPrice/numberOfPrices;
-        printf("The average price for %s brand items is %4.2f\n", vUniqueBrands[j].c_str(), avgPrice);
-        fprintf(pFile, "The average price for %s brand items is %4.2f\n", vUniqueBrands[j].c_str(), avgPrice);
+        printf("The average price for %s brand items is %4.2f\n", testDataOne.vUniqueBrands[j].c_str(), avgPrice);
+        fprintf(pFile, "The average price for %s brand items is %4.2f\n", testDataOne.vUniqueBrands[j].c_str(), avgPrice);
     }
 
     printf("\n\n");
@@ -198,36 +226,39 @@ int main() {
     // Feature 1: Category - Calculating and printing out average price per category
     printf("Average price by Category\n\n");
     fprintf(pFile, "Average price by Category\n\n");
-    for (int j = 0; j < vUniqueCategories.size(); j++) {
+    for (int j = 0; j < testDataOne.vUniqueCategories.size(); j++) {
         double totalPrice = 0;
-        for (int i = 0; i < vCategoryAvgPrice[j].size(); i++) {
-            totalPrice += vCategoryAvgPrice[j][i];
+        for (int i = 0; i < testDataOne.vCategoryAvgPrice[j].size(); i++) {
+            totalPrice += testDataOne.vCategoryAvgPrice[j][i];
         }
-        int numberOfPrices = vCategoryAvgPrice[j].size();
+        int numberOfPrices = testDataOne.vCategoryAvgPrice[j].size();
         double avgPrice = totalPrice/numberOfPrices;
-        printf("The average price for items in the %s category is %4.2f\n", vUniqueCategories[j].c_str(), avgPrice);
-        fprintf(pFile, "The average price for items in the %s category is %4.2f\n", vUniqueCategories[j].c_str(), avgPrice);
+        printf("The average price for items in the %s category is %4.2f\n", testDataOne.vUniqueCategories[j].c_str(), avgPrice);
+        fprintf(pFile, "The average price for items in the %s category is %4.2f\n", testDataOne.vUniqueCategories[j].c_str(), avgPrice);
     }
 
     printf("\n\n");
     fprintf(pFile, "\n\n");
 
     // Feature 2: SKUs by Year - Print out SKUs by Year
-    printf("SKUs By Year\n\n");
-    fprintf(pFile, "SKUs By Year\n\n");
-    for (int j = 0; j < vUniqueYears.size(); j++) {
-        string skuList;
-        for (int i = 0; i < vSKUsByYear[j].size(); i++) {
-            skuList += vSKUsByYear[j][i];
-            if (i + 1 != vSKUsByYear[j].size()) {
-                skuList += ", ";
-            }
-        }
-        printf("%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
-        fprintf(pFile, "%s (%d): %s\n", vUniqueYears[j].c_str(), vSKUsByYear[j].size(), skuList.c_str());
-    }
-
-    printf("\n\n");
-    fprintf(pFile, "\n\n");
+    testDataOne.printSKUsByYear(pFile);
+//    printf("SKUs By Year\n\n");
+//    fprintf(pFile, "SKUs By Year\n\n");
+//    for (int j = 0; j < testDataOne.vUniqueYears.size(); j++) {
+//        string skuList;
+//        for (int i = 0; i < testDataOne.vSKUsByYear[j].size(); i++) {
+//            skuList += testDataOne.vSKUsByYear[j][i];
+//            if (i + 1 != testDataOne.vSKUsByYear[j].size()) {
+//                skuList += ", ";
+//            }
+//        }
+//        printf("%s (%d): %s\n", testDataOne.vUniqueYears[j].c_str(), testDataOne.vSKUsByYear[j].size(), skuList.c_str());
+//        fprintf(pFile, "%s (%d): %s\n", testDataOne.vUniqueYears[j].c_str(), testDataOne.vSKUsByYear[j].size(), skuList.c_str());
+//    }
+//
+//    printf("\n\n");
+//    fprintf(pFile, "\n\n");
 
 }
+
+
