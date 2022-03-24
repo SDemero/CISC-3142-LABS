@@ -33,13 +33,13 @@ If you are using a Windows machine and you do not have access to a Unix/Linux en
 
 ## Usage
 
-Run the following command in the root directory of the cloned repository to build the *project*.
+Run the following command in the lab2 directory of the cloned repository to build the *project*.
 
 ```bash
 make lab2
 ```
 
-To build the program without using make, execute the following in your terminal:
+To build the program without using make, execute the following in your terminal (make sure you're in the lab2 directory):
 
 ```bash
 g++ main.cpp Calculator.cpp 
