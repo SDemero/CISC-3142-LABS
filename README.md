@@ -1,9 +1,20 @@
-# Simple C++ Data Parser
+# Complex C++ Calculator
 
-This program reads the given csv file and generates a report based on the input file's data.
+This program is an example of what happens when a project scope goes beyond the allotted time allocated to it.
+While the design of the program is feasible, the implementation is not successful as there are a few invalid memory accesses
+ attempted by the program which still need to be ironed out.
 
-## Report Generation
-This program outputs to both the console and an output file called output.txt.
+## Program Design
+The program takes in a valid mathematical expression. It then parses out all spaces using native string functionality.
+
+This parsed mathematical expression is then sent to a function that uses the postfix method to calculate the answer.
+This function uses a stack of doubles to hold the operands, and a stack of chars to hold the operators.
+It then loops through the mathematical expression string and follows a series of several conditions.
+
+If an operator causes another operator on the stack to pop, it then calls a function to take the operator and the two most 
+recent operands to perform a calculation. The result is then pushed back onto the operand stack.
+
+The goal is to have one operand left on the operand stack: the answer. And no operators left on the operator stack.
 
 ## Installation
 
@@ -27,13 +38,13 @@ If you are using a Windows machine and you do not have access to a Unix/Linux en
 Run the following command in the root directory of the cloned repository to build the *project*.
 
 ```bash
-make lab1
+make lab2
 ```
 
 To build the program without using make, execute the following in your terminal:
 
 ```bash
-gcc -o build main.cpp -lstdc++ -std=c++98
+gcc -o build main.cpp -lstdc++ -std=c++14
 ```
 
 Either of these commands will build the program. 
@@ -43,3 +54,24 @@ You can run this build file by executing:
 ```bash
 ./build
 ```
+
+## How to Use this Program
+
+Change the hardcoded testcase1 value to one that you'd like to test before building this program.
+The program expects any of the following characters:
+
+**Addition: +**
+
+**Subtraction: -**
+
+**Multiplication**
+
+**Division: /**
+
+**Exponentiation: ^**
+
+**Open Parentheses: (**
+
+**Close Parentheses: )**
+
+When running the program, the test case will be evaluated.
