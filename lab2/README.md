@@ -1,8 +1,6 @@
 # Complex C++ Calculator
 
-This program is an example of what happens when a project scope goes beyond the allotted time allocated to it.
-While the design of the program is feasible, the implementation is not successful as there are a few invalid memory accesses
- attempted by the program which still need to be ironed out.
+This program accepts a mathematical expression as a string and solves it using the postfix with stacks strategy.
 
 ## Program Design
 The program takes in a valid mathematical expression. It then parses out all spaces using native string functionality.
@@ -44,7 +42,7 @@ make lab2
 To build the program without using make, execute the following in your terminal:
 
 ```bash
-gcc -o build main.cpp -lstdc++ -std=c++14
+g++ main.cpp Calculator.cpp 
 ```
 
 Either of these commands will build the program. 
@@ -52,13 +50,13 @@ A "build" file will be created in your root directory.
 You can run this build file by executing:
 
 ```bash
-./build
+./a.out
 ```
 
 ## How to Use this Program
 
 After running this program, you will be greeted with a set of instructions on how to proceed.
-For valid expressions, refer to the list of valid characters below. Failure to comply will likely result in a program crash.
+For valid expressions, refer to the list of valid characters below. Failure to comply will likely result in the calculator dying.
 The program expects any of the following characters:
 
 **Addition: +**
