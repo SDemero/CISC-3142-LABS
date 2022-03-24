@@ -1,5 +1,8 @@
-lab2: build
+lab2: main
 
-build:
-	@gcc -o build main.cpp -lstdc++ -std=c++98
-	@./build
+main: calculator
+	@./a.out
+
+calculator:
+	@g++ main.cpp Calculator.cpp
+

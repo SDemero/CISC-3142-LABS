@@ -57,7 +57,8 @@ You can run this build file by executing:
 
 ## How to Use this Program
 
-Change the hardcoded testcase1 value to one that you'd like to test before building this program.
+After running this program, you will be greeted with a set of instructions on how to proceed.
+For valid expressions, refer to the list of valid characters below. Failure to comply will likely result in a program crash.
 The program expects any of the following characters:
 
 **Addition: +**
@@ -73,5 +74,3 @@ The program expects any of the following characters:
 **Open Parentheses: (**
 
 **Close Parentheses: )**
-
-When running the program, the test case will be evaluated.
