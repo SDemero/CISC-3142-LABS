@@ -10,17 +10,28 @@ of report chosen.
 
 
 ## How to Run this Program
-1. Clone the repository:
-``git clone https://github.com/makmn1/CISC-3142-LABS``
-2. Move into the lab3 directory:
+Clone the repository with the recursive flag (the recursive flag is necessary in order to clone the data submodule): 
+
+``git clone https://github.com/makmn1/CISC-3142-LABS --recursive``
+
+If you forget to include the --recursive flag, you can update the cloned repository with the submodule by running: 
+
+`git submodule update --init`
+
+Next, move into the lab3 directory:
+
 `cd lab3`
-3. Right now, the data directory is empty since it is a submodule.
-Git does not add submodules when cloning a repository.
-You can have Git add the submodule by running:`git submodule update --init`.
-You can also add your own data files by following the *Input File Format* section below.
-6. Build the program using the provided Makefile by running: `make lab3`
-7. After the program finishes building, it will automatically execute the program. 
-You can execute the program again in the future by running: `./a.out`
+
+You can also add your own data files by following the [Input File Format](https://github.com/makmn1/CISC-3142-LABS/edit/main/lab3/README.md#input-file-format) section below.
+
+Build the program using the provided Makefile by running: 
+
+`make lab3`
+
+After the program finishes building, it will automatically execute the program. 
+You can execute the program again in the future by running: 
+
+`./a.out`
 
 
 ## Report Generation
