@@ -61,7 +61,7 @@ void gradeRatesByCategories(map<vector<string>, vector<string>> &courseGrades) {
             if (report.reportRatesByCourseAndSemester)
                 seasonPassRate.passRateMap = termPassRate.termsToSeason();
 
-            FILE *pFile = createOutputFile(R"(C:\Users\makmn\CLionProjects\CISC-3142-LAB-3\output\)", outputFileName);
+            FILE *pFile = createOutputFile("./output/", outputFileName);
             if (report.reportRatesByInstructor)
                 instructorPassRate.printRates({"Instructor ID"}, pFile);
             if (report.reportRatesByCourse)
