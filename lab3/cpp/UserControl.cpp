@@ -111,6 +111,7 @@ bool keepRunning() {
         cout << "Closing program" << endl;
     } else {
         cout << "Unknown response. Terminating Program" << endl;
+        exit(1);
         userWantsAnotherReport = false;
     }
     return userWantsAnotherReport;

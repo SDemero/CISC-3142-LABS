@@ -4,26 +4,16 @@
 #include <string>
 #include <map>
 
-
+#include "headers/InputFileManager.h"
 #include "headers/GradeRatesByCategory.h"
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-
-    if (argc == 1) {
-        cout << "Please provide at least one absolute path to an input file";
-        exit(0);
-    }
+int main() {
 
     int inputFilesProcessed = 0;
-    vector<string> inputFilePaths;
 
-    inputFilePaths.reserve(argc - 1);
-
-    for (int i = 1; i < argc; i++) {
-        inputFilePaths.emplace_back(argv[i]);
-    }
+    vector<string> inputFilePaths = getInputFiles();
 
     ifstream in_stream;
 
@@ -83,14 +73,4 @@ int main(int argc, char* argv[]) {
     }
     gradeRatesByCategories(courseGrades);
 }
-
-//    for(auto kv : courseGrades) {
-//        auto& key = kv.first;
-//        auto& value = kv.second;
-//        printf("Course Info: %s, %s, %s, %s\n",
-//               key[0].c_str(), key[1].c_str(), key[2].c_str(), key[3].c_str());
-//        for (string grade : value)
-//            std::cout << grade << ",";
-//        cout << endl;
-//    }
 
